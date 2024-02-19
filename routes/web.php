@@ -14,6 +14,12 @@ use App\Http\Controllers\Admin\SupportController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//Submit update Support
+Route::put('/supports/{id}', [SupportController::class,'update'])->name('supports.update');
+
+// Edit Support
+Route::get('/supports/{id}/edit',[SupportController::class,'edit'])->name('supports.edit');
+
 // Create Support
 Route::get('/supports/create', [SupportController::class, 'create'])->name('supports.create');
 // Show Single Support
