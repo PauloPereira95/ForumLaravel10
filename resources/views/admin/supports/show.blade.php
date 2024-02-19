@@ -9,4 +9,9 @@
     <li>
         Descricao : {{ $support->body }}
     </li>
+    <form action="{{ route('supports.destroy', $support->id) }}" method="POST">
+        @csrf
+        @method('delete')
+        <button type='submit'>Apagar</button>
+    </form>
 </ul>

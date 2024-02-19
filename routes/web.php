@@ -14,6 +14,10 @@ use App\Http\Controllers\Admin\SupportController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//Delete Support
+Route::delete('/supports/{id}', [SupportController::class, 'destroy'])->name('supports.destroy');
+
+
 //Submit update Support
 Route::put('/supports/{id}', [SupportController::class,'update'])->name('supports.update');
 
