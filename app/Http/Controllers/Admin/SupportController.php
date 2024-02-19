@@ -16,4 +16,12 @@ class SupportController extends Controller
       // pass the data do view compact('supports')
     return view('admin/supports/index',compact('supports'));
    }
+   // Render de Create Page
+   public function create(){
+      return view('/admin/supports/create');
+   }
+   // Store teh content of support
+   public function store(Request $request){
+      dd($request->all());
+   }
 }

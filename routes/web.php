@@ -14,6 +14,11 @@ use App\Http\Controllers\Admin\SupportController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//post support
+Route::post('/supports', [SupportController::class,'store'])->name('supports.store');
+// Create Support
+Route::get('/supports/create', [SupportController::class, 'create'])->name('supports.create');
+// Show Supports Page
 Route::get('/supports', [SupportController::class,'index'])->name('supports.index');
 //Contact Page
 Route::get('/contact', [SiteController::class,('contact')]);
