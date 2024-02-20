@@ -5,15 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\StoreUpdateSupport;
 
 use App\Models\Support;
+use App\Service\SupportService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class SupportController extends Controller
 {
-   // Dependecy Injection exe .: index(Support $support)
-   public function index(Support $support){
-     
-      $supports = $support->all();
+    // attributes promotion ex.: protected SupportService $service
+    public function __construct(protected SupportService $service)
+    {
+
+    }
+
+    // Dependecy Injection exe .: index(Support $support)
+   public function index(Request $request){
+
+      $supports = $this->service->getAll($request->filter);
       // dd($supports);
       // pass the data do view compact('supports')
     return view('admin/supports/index',compact('supports'));
@@ -29,7 +36,7 @@ class SupportController extends Controller
 
       // insert in model
       $support = $support->create($data);
-     
+
       return redirect()->route('supports.index');
    }
    public function show (string|int $id){
@@ -39,13 +46,13 @@ class SupportController extends Controller
        * Support::where('id', $id)->first();
        * Support::where('id','=', $id)->first();
        */
-      if(!$support = Support::find($id)){
+      if(!$support = $this->service->findOne($id)){
          return back();
       }
       return view('admin/supports/show',compact('support'));
    }
-   public function edit(string|int $id , Support $support){
-      if(!$support = $support->find($id)){
+   public function edit(string $id , Support $support){
+      if(!$support = $this->service->findOne($id)){
          return back();
       }
       return view('admin/supports/edit',compact('support'));
@@ -59,10 +66,7 @@ class SupportController extends Controller
       return redirect()->route('supports.index');
    }
    public function destroy(string | int $id){
-      if(!$support = Support::find($id)){
-         return back();
-      }
-      $support->delete();
+      $this->service->delete($id);
       return redirect()->route('supports.index');
    }
 }
