@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\StoreUpdateSupport;
 use App\Models\Support;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,7 +22,7 @@ class SupportController extends Controller
       return view('/admin/supports/create');
    }
    // Store teh content of support
-   public function store(Request $request, Support $support){
+   public function store(StoreUpdateSupport $request, Support $support){
       $data = $request->all();
       $data['status'] = 'a';
 
