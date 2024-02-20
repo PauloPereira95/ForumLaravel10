@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Dto\CreateSupportDTO;
+use App\Dto\UpdateSupportDTO;
 use stdClass;
 
 class SupportService
@@ -13,22 +15,12 @@ class SupportService
 
     }
 
-    public function new(
-        string $subject,
-        string $status,
-        string $body
-    ): stdClass
-    {
-        return $this->repository->new($subject, $status, $body);
+    public function new(CreateSupportDTO $dto): stdClass {
+        return $this->repository->new($dto);
     }
 
-    public function update(
-        string $id,
-        string $status,
-        string $body
-    ): stdClass | null
-    {
-        return $this->repository->update($id,$status,$body);
+    public function update(UpdateSupportDTO $dto): stdClass|null {
+        return $this->repository->update($dto);
     }
 
     public function getAll(string $filter = null): array
