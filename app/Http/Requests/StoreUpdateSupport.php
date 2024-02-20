@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUpdateSupport extends FormRequest
@@ -21,7 +22,7 @@ class StoreUpdateSupport extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules =  [
             'subject' => 'required|min:3|max:255|unique:supports',
             'body' => [
                 'required',
@@ -29,5 +30,16 @@ class StoreUpdateSupport extends FormRequest
                 'max:500'
             ]
         ];
+        if($this->method() === 'PUT'){
+            $rules['subject'] = [
+                'required',
+                'min:3',
+                'max:255',
+                // allow to update subject with that id (video 17 min 4:20)
+                // "unique:supports,subject,{$this->id},id"
+                Rule::unique('supports')->ignore($this->id),
+            ];
+        }
+        return $rules;
     }
 }

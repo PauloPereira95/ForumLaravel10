@@ -1,5 +1,10 @@
 <h1>Duvida #{{ $support->id }}</h1>
-<form action="{{ route('supports.update',$support->id) }}" method="post">
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        {{ $error }}
+    @endforeach
+@endif
+<form action="{{ route('supports.update', $support->id) }}" method="post">
     {{-- Token form error 419 @csrf --}}
     @csrf()
     {{-- specifies the form method for put --}}

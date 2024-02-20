@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+//rules of store and update
 use App\Http\Requests\StoreUpdateSupport;
+
 use App\Models\Support;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -23,7 +24,7 @@ class SupportController extends Controller
    }
    // Store teh content of support
    public function store(StoreUpdateSupport $request, Support $support){
-      $data = $request->all();
+      $data = $request->validated();
       $data['status'] = 'a';
 
       // insert in model
@@ -49,14 +50,12 @@ class SupportController extends Controller
       }
       return view('admin/supports/edit',compact('support'));
    }
-   public function update(string | int $id, Support $support,Request $request){
+   public function update(string | int $id, Support $support,StoreUpdateSupport $request){
       if(!$support = $support->find($id) ){
          return back();
       }
       // only update 2 columns
-      $support->update($request->only([
-         'subject', 'body'
-      ]));
+      $support->update($request->validated());
       return redirect()->route('supports.index');
    }
    public function destroy(string | int $id){
