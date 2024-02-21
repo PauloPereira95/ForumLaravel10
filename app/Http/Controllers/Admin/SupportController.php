@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 //rules of store and update
-use App\Models\Support;
+use stdClass;
 
+use App\Models\Support;
 use Illuminate\Http\Request;
-use App\Dto\CreateSupportDTO;
-use App\Dto\UpdateSupportDTO;
-use App\Service\SupportService;
+
+use App\DTO\CreateSupportDTO;
+use App\DTO\UpdateSupportDTO;
+use App\Services\SupportService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateSupport;
 
@@ -25,7 +27,7 @@ class SupportController extends Controller
    {
 
       $supports = $this->service->getAll($request->filter);
-      // dd($supports);
+     
       // pass the data do view compact('supports')
       return view('admin/supports/index', compact('supports'));
    }
@@ -63,7 +65,7 @@ class SupportController extends Controller
       }
       return view('admin/supports/edit', compact('support'));
    }
-   public function update(StoreUpdateSupport $request, Support $support, string $id): \stdClass|null
+   public function update(StoreUpdateSupport $request, Support $support, string $id)
    {
       $request = $this->service->update(UpdateSupportDTO::makeFromRequest($request));
 
