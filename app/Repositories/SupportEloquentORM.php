@@ -11,32 +11,49 @@ class SupportEloquentORM implements SupportRepositoryInterface
 {
     public function __construct(
         protected Support $model
-    )
-    {
+    ) {
 
     }
+    public function paginate(int $page = 1, int $totalPerPage = 15, string $filter = null): PaginationInterface
+    {
+        $result = $this->model
+            ->where(function ($query) use ($filter) {
+                if ($filter) {
+                    // filter on subject an body
+                    $query->where('subject', $filter);
+                    // filter exists anywhere on value body filed
+                    $query->orWhere('body', '%like%', "%$filter%");
+                }
+            })
+            // Custom Paginate
+            // columns / page
+            ->paginate($totalPerPage, ['*'], 'page', $page);
+        dd($result->toArray());
+    }
+
     public function getAll(string $filter = null): array
     {
-        
-        return  $this->model
+
+        return $this->model
             ->where(function ($query) use ($filter) {
-            if($filter){
-                // filter on subject an body
-            $query->where('subject', $filter);
-            // filter exists anywhere on value body filed
-            $query->orWhere('body','%like%', "%$filter%");
-            }
-        })
-        ->get()
-        ->toArray();
+                if ($filter) {
+                    // filter on subject an body
+                    $query->where('subject', $filter);
+                    // filter exists anywhere on value body filed
+                    $query->orWhere('body', '%like%', "%$filter%");
+                }
+            })
+            ->get()
+            ->toArray();
     }
     public function findOne(string|int $id): stdClass|null
     {
         $support = $this->model->find($id);
-        if(!$support) return null;
+        if (!$support)
+            return null;
 
         return (object) $support->toArray();
-    }   
+    }
     public function delete(string $id): void
     {
         // try to find ,if not fin throw error 404
@@ -44,17 +61,18 @@ class SupportEloquentORM implements SupportRepositoryInterface
     }
     public function new(CreateSupportDTO $dto): stdClass
     {
-        
-        $support =  $this->model->create(
+
+        $support = $this->model->create(
             (array) $dto
         );
         return (object) $support->toArray();
     }
     public function update(UpdateSupportDTO $dto): stdClass|null
     {
-       if(!$support = $this->model->find($dto->id)) return null;
+        if (!$support = $this->model->find($dto->id))
+            return null;
 
-       $support->update((array) $dto);
-       return (object)$support->toArray();
+        $support->update((array) $dto);
+        return (object) $support->toArray();
     }
 }
