@@ -29,13 +29,13 @@ class SupportController extends Controller
         $supports = $this->service->paginate(
             // if page not exist on request send value 1
             page : $request->get("page",1),
-            totalPerPage: $request->get('per_page' ,15),
-            filter : $request->filter
+            totalPerPage: $request->get('per_page' ,1),
+            filter: $request->filter,
         );
-
-
+        $filters = ['filter' => $request->get('filters', '')];
+        // dd($filter);
         // pass the data do view compact('supports')
-        return view('admin/supports/index', compact('supports'));
+        return view('admin/supports/index', compact('supports', 'filters'));
     }
     // Render de Create Page
     public function create()

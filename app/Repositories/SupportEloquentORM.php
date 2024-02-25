@@ -17,20 +17,15 @@ class SupportEloquentORM implements SupportRepositoryInterface
     public function paginate(int $page = 1, int $totalPerPage = 15, string $filter = null): PaginationInterface
     {
         $result = $this->model
-            ->where(function ($query) use ($filter) {
-                if ($filter) {
-                    // filter on subject an body
-                    $query->where('subject', $filter);
-                    // filter exists anywhere on value body filed
-                    $query->orWhere('body', '%like%', "%$filter%");
-                }
-            })
-            // Custom Paginate
-            // columns / page
-            ->paginate($totalPerPage, ['*'], 'page', $page);
-       // Custom Paginator
-       dd((new PaginationPresenter($result))->items());
-       return new PaginationPresenter($result);
+                    ->where(function ($query) use ($filter) {
+                        if ($filter) {
+                            $query->where('subject', $filter);
+                            $query->orWhere('body', 'like', "%{$filter}%");
+                        }
+                    })
+                    ->paginate($totalPerPage, ['*'], 'page', $page);
+
+        return new PaginationPresenter($result);
     }
 
     public function getAll(string $filter = null): array
