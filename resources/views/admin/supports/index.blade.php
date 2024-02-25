@@ -1,4 +1,13 @@
-<h1>Lista dos Pedidos de Suportes</h1>
+@extends('admin/layouts/app')
+
+@section('content')
+
+{{--  Name of the page  --}}
+@section('title' , 'Forum')
+
+@section('header')
+    <h1>Listagem de Supports</h1>
+@endsection
 {{-- Inside e link is the name of the route . view on web.php  --}}
 <a href="{{ route('supports.create') }}">Fazer Pedido de Supporte</a>
 <table style="text-align:right;">
@@ -22,3 +31,4 @@
     </tbody>
 </table>
 <x-pagination :paginator="$supports" :appends="$filters"/>
+@endsection
