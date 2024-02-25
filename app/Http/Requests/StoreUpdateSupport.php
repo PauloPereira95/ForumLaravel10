@@ -30,14 +30,18 @@ class StoreUpdateSupport extends FormRequest
                 'max:500'
             ]
         ];
-        if($this->method() === 'PUT'){
+        if($this->method() === 'PUT' || $this->method() === 'PATH'){
+            // Como o resouce do api nomeou o id como support na rota
+            // neste caso em vez de $this->id coloca-se $this->support
+           
+            $id = $this->support ?? $this->id;
             $rules['subject'] = [
                 'required',
                 'min:3',
                 'max:255',
                 // allow to update subject with that id (video 17 min 4:20)
                 // "unique:supports,subject,{$this->id},id"
-                Rule::unique('supports')->ignore($this->id),
+                Rule::unique('supports')->ignore($id),
             ];
         }
         return $rules;
