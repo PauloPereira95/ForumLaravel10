@@ -33,7 +33,7 @@ class StoreUpdateSupport extends FormRequest
         if($this->method() === 'PUT' || $this->method() === 'PATH'){
             // Como o resouce do api nomeou o id como support na rota
             // neste caso em vez de $this->id coloca-se $this->support
-           
+
             $id = $this->support ?? $this->id;
             $rules['subject'] = [
                 'required',
