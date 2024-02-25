@@ -6,7 +6,7 @@
 @section('title' , 'Forum')
 
 @section('header')
-    <h1>Listagem de Supports</h1>
+@include('admin/supports/partials/header' ,compact('supports'))
 @endsection
 {{-- Inside e link is the name of the route . view on web.php  --}}
 <a href="{{ route('supports.create') }}">Fazer Pedido de Supporte</a>

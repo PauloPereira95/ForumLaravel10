@@ -9,15 +9,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <head>
-{{--    O que tiver com o @section('header') e renderizado aqui    --}}
-        @yield('header')
-    </head>
+<section class="container px-4 mx-auto">
+    <div class="sm:flex sm:items-center sm:justify-between">
+       @yield('header')
+    </div>
     <div class="content">
         @yield('content')
     </div>
     <footer>
         #default Footer
     </footer>
+
+</section>
 </body>
 </html>
