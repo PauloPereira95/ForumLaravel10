@@ -12,7 +12,7 @@ enum SupportStatus : string {
                 return $status->value;
             }
         }
-        throw new ValueError("$status os not valid ! ");
+        throw new ValueError("$status as not valid ! ");
     }
 
 }
