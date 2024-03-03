@@ -28,7 +28,7 @@ class SupportController extends Controller
         // if page not exist on request send value 1
             page : $request->get("page",1),
             filter: $request->filter,
-            totalPerPage: $request->get('per_page' ,1),
+            totalPerPage: $request->get('per_page' ,10),
         );
         // Converte front end data to JSON
         return ApiAdapter::toJson($supports);
