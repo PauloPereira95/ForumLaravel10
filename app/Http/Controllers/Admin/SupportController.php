@@ -29,7 +29,7 @@ class SupportController extends Controller
         $supports = $this->service->paginate(
             // if page not exist on request send value 1
             page : $request->get("page",1),
-            totalPerPage: $request->get('per_page' ,1),
+            totalPerPage: $request->get('per_page' ,4),
             filter: $request->filter,
         );
         $filters = ['filter' => $request->get('filters', '')];
@@ -85,6 +85,6 @@ class SupportController extends Controller
     public function destroy(string|int $id)
     {
         $this->service->delete($id);
-        return redirect()->route('supports.index');
+        return redirect()->route('supports.index')->with('message', 'Suporte Eliminado com sucesso');
     }
 }
