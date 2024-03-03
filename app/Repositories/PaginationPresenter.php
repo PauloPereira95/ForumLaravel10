@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use stdClass;
-;
+
 
 class PaginationPresenter implements PaginationInterface
 {
