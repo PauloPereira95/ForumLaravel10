@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Site\SiteController;
 use App\Http\Controllers\Admin\SupportController;
+use App\Http\Controllers\Admin\ReplySupportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // List Replys of one support
+    Route::get('/supports/{id}/replies', [ReplySupportController::class, 'index'])->name('replies.index');
+
     //Delete Support
     Route::delete('/supports/{id}', [SupportController::class, 'destroy'])->name('supports.destroy');
 
@@ -51,8 +56,7 @@ Route::middleware('auth')->group(function () {
 
     // Create Support
     Route::get('/supports/create', [SupportController::class, 'create'])->name('supports.create');
-    // Show Single Support
-    Route::get('/supports/{id}', [SupportController::class, 'show'])->name('supports.show');
+
 
     //post support
     Route::post('/supports', [SupportController::class, 'store'])->name('supports.store');
