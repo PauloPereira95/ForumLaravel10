@@ -1,17 +1,24 @@
 <?php
 namespace App\Services;
+
+use App\DTO\Replies\CreateReplyDTO;
 use stdClass;
 use Exception;
 use App\DTO\Supports\CreateSupportDTO;
+use App\Repositories\Contracts\ReplyRepositoryInterface;
 
 class ReplySupportService {
-    public function getAllBySupport(string $supportId) : array{
-        return [];
+    public function __construct(protected ReplyRepositoryInterface $repository){
+
+    }
+    public function getAllBySupportId(string $supportId) : array{
+        return $this->repository->getAllBySupportId($supportId);
     }
     public function createNew(
-        CreateSupportDTO $dto
+        CreateReplyDTO $dto
             ) : stdClass{
-                throw new Exception('Not Implemented');
+        $reply =  $this->repository->createNew($dto);
+        return $reply;
 
     }
 }
