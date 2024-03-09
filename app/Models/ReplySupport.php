@@ -11,7 +11,7 @@ class ReplySupport extends Model
 {
     use HasFactory,HasUuids;
     // Create Model relations
-    protected $table = 'replies_support';
+    protected $table = 'replies_supports';
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
