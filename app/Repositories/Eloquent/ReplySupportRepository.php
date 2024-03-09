@@ -15,9 +15,9 @@ class ReplySupportRepository implements ReplyRepositoryInterface
     public function __construct(protected ReplySupport $model){
 
     }
-    public function getAllBySupportId(string $supportId): array
+    public function getAllBySupportId(string $support_id): array
     {
-        $replies = $this->model->where('support_id', $supportId)->get();
+        $replies = $this->model->where('support_id', $support_id)->get();
         return  $replies->toArray();
     }
     public function createNew(CreateReplyDTO $dto): stdClass
@@ -25,11 +25,11 @@ class ReplySupportRepository implements ReplyRepositoryInterface
        $reply = $this->model->create(
         [
             'content' => $dto->content,
-            'support_id' => $dto->supportId,
+            'support_id' => $dto->support_id,
             'user_id' => Auth::user()->id,
 
         ]);
-        // convert to object
-        return (object) $reply;
+        // convert to object Model to array and convert to object stdClass
+        return (object) $reply->toArray();
     }
 }

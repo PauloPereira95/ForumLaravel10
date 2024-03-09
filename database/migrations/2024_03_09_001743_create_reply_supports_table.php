@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('replies_supports', function (Blueprint $table) {
+        Schema::create('replies_support', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id')->index();
             $table->uuid('support_id')->index();
