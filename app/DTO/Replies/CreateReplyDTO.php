@@ -1,7 +1,6 @@
 <?php
 namespace App\DTO\Replies;
-
-class ClassReplyDTO {
+class CreateReplyDTO {
 
     public function __construct(
         string $supportId,

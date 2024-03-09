@@ -6,6 +6,9 @@ use App\Models\Support;
 use App\Observers\SupportObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\SupportEloquentORM;
+
+use App\Repositories\Eloquent\ReplySupportRepository;
+use App\Repositories\Contracts\ReplyRepositoryInterface;
 use App\Repositories\Contracts\SupportRepositoryInterface;
 
 
@@ -17,10 +20,18 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            // Abstract Class
+                // Abstract Class
             SupportRepositoryInterface::class,
-            // Concrete Class
-            SupportEloquentORM::class);
+                // Concrete Class
+            SupportEloquentORM::class
+        );
+
+        // Abstract Class
+        $this->app->bind(
+            ReplyRepositoryInterface::class,
+                // Concrete Class
+                ReplySupportRepository::class
+        );
     }
 
     /**
@@ -28,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-      // Turn on Observable
-      Support::observe(SupportObserver::class);
+        // Turn on Observable
+        Support::observe(SupportObserver::class);
     }
 }
