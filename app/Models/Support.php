@@ -4,9 +4,10 @@ namespace App\Models;
 
 use App\Enums\SupportStatus;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Support extends Model
 {
@@ -16,7 +17,7 @@ class Support extends Model
         'body',
         'status',
     ];
-    use HasFactory;
+    use HasFactory,HasUuids;
 
 /*
 * DTO envia o status do tipo SupportStatus (ENUM) ,

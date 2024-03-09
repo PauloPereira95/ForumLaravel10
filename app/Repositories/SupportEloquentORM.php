@@ -1,11 +1,13 @@
 <?php
 namespace App\Repositories;
 
+use stdClass;
+
+use Ramsey\Uuid\Uuid;
 use App\Models\Support;
 use App\DTO\Supports\CreateSupportDTO;
 use App\DTO\Supports\UpdateSupportDTO;
 use App\Repositories\SupportRepositoryInterface;
-use stdClass;
 
 class SupportEloquentORM implements SupportRepositoryInterface
 {
@@ -60,7 +62,8 @@ class SupportEloquentORM implements SupportRepositoryInterface
     {
 
         $support = $this->model->create(
-            (array) $dto
+            (array) $dto,
+
         );
         return (object) $support->toArray();
     }

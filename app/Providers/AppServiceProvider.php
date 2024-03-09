@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Support;
+use App\Observers\SupportObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\SupportEloquentORM;
 use App\Repositories\SupportRepositoryInterface;
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-      
+      // Turn on Observable
+      Support::observe(SupportObserver::class);
     }
 }
