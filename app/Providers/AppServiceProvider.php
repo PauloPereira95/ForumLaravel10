@@ -6,7 +6,8 @@ use App\Models\Support;
 use App\Observers\SupportObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\SupportEloquentORM;
-use App\Repositories\SupportRepositoryInterface;
+use App\Repositories\Contracts\SupportRepositoryInterface;
+
 
 class AppServiceProvider extends ServiceProvider
 {

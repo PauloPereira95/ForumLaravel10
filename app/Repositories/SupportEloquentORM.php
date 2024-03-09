@@ -7,7 +7,9 @@ use Ramsey\Uuid\Uuid;
 use App\Models\Support;
 use App\DTO\Supports\CreateSupportDTO;
 use App\DTO\Supports\UpdateSupportDTO;
-use App\Repositories\SupportRepositoryInterface;
+use App\Repositories\PaginationPresenter;
+use App\Repositories\Contracts\PaginationInterface;
+use App\Repositories\Contracts\SupportRepositoryInterface;
 
 class SupportEloquentORM implements SupportRepositoryInterface
 {

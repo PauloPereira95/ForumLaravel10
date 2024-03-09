@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories;
+namespace App\Repositories\Contracts;
 
 use stdClass;
 use App\DTO\Supports\CreateSupportDTO;
