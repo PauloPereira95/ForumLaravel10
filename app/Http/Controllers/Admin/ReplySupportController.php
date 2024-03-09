@@ -19,7 +19,8 @@ class ReplySupportController extends Controller
         if (!$support = $this->supportService->findOne($id)) return back();
         $replies = $this->replyService->getAllBySupportId($id);
         // dd($replies);
-        return view('admin/supports/replies/replies', compact('support' , 'replies'));
+        return view('admin/supports/replies/replies',
+         compact('support' , 'replies'));
     }
     public function store(Request $request){
          $this->replyService->createNew(CreateReplyDTO::makeFromRequest($request));

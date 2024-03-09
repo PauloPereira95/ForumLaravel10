@@ -3,6 +3,7 @@
 @section('title', "Detalhes da Dúvida {$support->subject}")
 
 @section('content')
+
 <!-- component -->
 <div class="flex justify-center min-h-screen">
     <div class="md:w-3/5 w-3/4 px-10 flex flex-col gap-2 p-5">
@@ -21,39 +22,22 @@
 
         <!-- Item Container -->
         <div class="flex flex-col gap-3 text-white">
+            @forelse ($replies as $reply )
             <div class="flex flex-col gap-4 dark:bg-gray-900 rounded p-4">
                 <!-- Profile and Rating -->
                 <div class="flex justify justify-between">
                     <div class="flex gap-2">
                         <div class="w-7 h-7 text-center rounded-full bg-red-500">CF</div>
-                        <span>Nome do Usuário</span>
+                        <span>{{ $reply['user']['name'] }}</span>
                     </div>
                 </div>
 
                 <div>
-                    Algum texto de resposta aqui
+                    {{ $reply['content'] }}
                 </div>
 
                 <div class="flex justify-between">
-                    <span>d/m/Y</span>
-                </div>
-            </div>
-
-            <div class="flex flex-col gap-4 dark:bg-gray-900 rounded p-4">
-                <!-- Profile and Rating -->
-                <div class="flex justify justify-between">
-                    <div class="flex gap-2">
-                        <div class="w-7 h-7 text-center rounded-full bg-red-500">CF</div>
-                        <span>Nome do Usuário</span>
-                    </div>
-                </div>
-
-                <div>
-                    Algum texto de resposta aqui
-                </div>
-
-                <div class="flex justify-between">
-                    <span>d/m/Y</span>
+                    <span>{{ $reply['created_at'] }}</span>
                     <form action="{{ route('supports.destroy', $support->id) }}" method="post">
                         @csrf()
                         @method('DELETE')
@@ -62,8 +46,12 @@
                 </div>
             </div>
 
+            @empty
+            <div class="flex flex-col gap-4 dark:bg-gray-900 rounded p-4">
+                <p>Sem Comentários</p>
+            </div>
+            @endforelse
             <div class="py-4">
-
                 <form action="{{ route('replies.store' , $support->id) }}" method="post">
                     @csrf
                     <input type="hidden" name="support_id" value="{{ $support->id }}">
