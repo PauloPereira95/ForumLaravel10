@@ -20,8 +20,11 @@ return new class extends Migration
 
 
             // FK'S
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('support_id')->references('id')->on('supports');
+            $table->foreign('user_id')
+            ->references('id')->on('users');
+
+            $table->foreign('support_id')
+            ->references('id')->on('supports');
         });
     }
 
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reply_supports');
+        Schema::dropIfExists('replies_supports');
     }
 };
