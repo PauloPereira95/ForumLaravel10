@@ -1,12 +1,13 @@
 <?php
 namespace App\Services;
 
-use App\DTO\Replies\CreateReplyDTO;
 use stdClass;
 use Exception;
+use App\Events\SupportReplied;
+use App\DTO\Replies\CreateReplyDTO;
+use Illuminate\Support\Facades\Gate;
 use App\DTO\Supports\CreateSupportDTO;
 use App\Repositories\Contracts\ReplyRepositoryInterface;
-use Illuminate\Support\Facades\Gate;
 
 class ReplySupportService {
     public function __construct(protected ReplyRepositoryInterface $repository){
@@ -18,7 +19,10 @@ class ReplySupportService {
     public function createNew(
         CreateReplyDTO $dto
             ) : stdClass{
-        $reply =  $this->repository->createNew($dto);
+                $reply =   $this->repository->createNew($dto);
+
+        // send email when create a new comment (Reply)
+        SupportReplied::dispatch($reply);
         return $reply;
 
     }
