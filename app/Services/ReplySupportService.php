@@ -21,4 +21,7 @@ class ReplySupportService {
         return $reply;
 
     }
+    public function delete(string $support_id ) : bool {
+        return  $this->repository->delete($support_id);
+    }
 }

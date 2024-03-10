@@ -43,7 +43,10 @@ Route::middleware('auth')->group(function () {
 
     // List Replys of one support
     Route::get('/supports/{id}/replies', [ReplySupportController::class, 'index'])->name('replies.index');
+    // Create a new reply
     Route::post('/supports/{id}/replies', [ReplySupportController::class, 'store'])->name('replies.store');
+    // Delete new reply
+    Route::Delete('/supports/{id}/replies/{reply}', [ReplySupportController::class, 'destroy'])->name('replies.destroy');
 
     //Delete Support
     Route::delete('/supports/{id}', [SupportController::class, 'destroy'])->name('supports.destroy');
@@ -63,8 +66,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/supports', [SupportController::class, 'store'])->name('supports.store');
     // Show Supports Page
     Route::get('/supports', [SupportController::class, 'index'])->name('supports.index');
-
 });
 
 require __DIR__ . '/auth.php';
-

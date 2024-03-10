@@ -34,4 +34,10 @@ class ReplySupportRepository implements ReplyRepositoryInterface
         // convert to object Model to array and convert to object stdClass
         return (object) $reply->toArray();
     }
+    public function delete(string $support_id) : bool {
+        if(!$reply = $this->model->find($support_id)){
+            return false;
+        }
+        return $reply->delete();
+    }
 }
