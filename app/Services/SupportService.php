@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use stdClass;
+use Illuminate\Support\Facades\Gate;
 use App\DTO\Supports\CreateSupportDTO;
 use App\DTO\Supports\UpdateSupportDTO;
 use App\Repositories\Contracts\PaginationInterface;
@@ -12,7 +13,6 @@ class SupportService
 {
     public function __construct(protected SupportRepositoryInterface $repository)
     {
-
     }
 
     public function new(CreateSupportDTO $dto): stdClass
@@ -22,13 +22,14 @@ class SupportService
 
     public function update(UpdateSupportDTO $dto): stdClass|null
     {
+
         return $this->repository->update($dto);
     }
     public function paginate(
         int $page,
         string $filter = null,
         int $totalPerPage
-    ) : PaginationInterface{
+    ): PaginationInterface {
         return $this->repository->paginate(
             page: $page,
             totalPerPage: $totalPerPage,
@@ -48,6 +49,7 @@ class SupportService
 
     public function delete(string|int $id): void
     {
+
         $this->repository->delete($id);
     }
 }

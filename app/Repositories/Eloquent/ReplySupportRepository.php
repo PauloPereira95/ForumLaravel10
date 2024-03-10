@@ -3,10 +3,11 @@
 namespace App\Repositories\Eloquent;
 
 
-use App\Models\ReplySupport;
 use stdClass;
+use App\Models\ReplySupport;
 use App\DTO\Replies\CreateReplyDTO;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Repositories\Contracts\ReplyRepositoryInterface;
 
 
@@ -37,6 +38,10 @@ class ReplySupportRepository implements ReplyRepositoryInterface
     public function delete(string $support_id) : bool {
         if(!$reply = $this->model->find($support_id)){
             return false;
+        }
+        // only delte the owner of the reply
+        if (Gate::denies('owner', $reply->user->id)) {
+            abort(403, 'Nao esta Autorizado');
         }
         return $reply->delete();
     }

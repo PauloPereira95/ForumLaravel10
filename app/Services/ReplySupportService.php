@@ -6,6 +6,7 @@ use stdClass;
 use Exception;
 use App\DTO\Supports\CreateSupportDTO;
 use App\Repositories\Contracts\ReplyRepositoryInterface;
+use Illuminate\Support\Facades\Gate;
 
 class ReplySupportService {
     public function __construct(protected ReplyRepositoryInterface $repository){
@@ -22,6 +23,7 @@ class ReplySupportService {
 
     }
     public function delete(string $support_id ) : bool {
+
         return  $this->repository->delete($support_id);
     }
 }
