@@ -18,13 +18,13 @@ class SupportReplied
     /**
      * Create a new event instance.
      */
-    public function __construct(protected stdClass $support)
+    public function __construct(protected stdClass $reply)
     {
         //
     }
 
-    public function support() :stdClass{
-        return $this->support;
+    public function reply() :stdClass{
+        return $this->reply;
     }
 
     /**
