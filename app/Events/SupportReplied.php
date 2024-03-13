@@ -23,7 +23,7 @@ class SupportReplied
         //
     }
 
-    public function suupport() :stdClass{
+    public function support() :stdClass{
         return $this->support;
     }
 

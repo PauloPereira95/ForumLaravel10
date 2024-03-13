@@ -65,7 +65,7 @@ class SupportEloquentORM implements SupportRepositoryInterface
         }
         // // try to find ,if not fin throw error 404
         // // delete replyes of support
-        // $support->replies()->delete();
+         $support->replies()->delete();
         //delete support
         $support->delete();
     }
