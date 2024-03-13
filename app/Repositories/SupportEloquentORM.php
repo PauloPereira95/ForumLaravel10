@@ -64,8 +64,8 @@ class SupportEloquentORM implements SupportRepositoryInterface
             abort(403, 'Nao esta Autorizado');
         }
         // // try to find ,if not fin throw error 404
-        // // delete replyes of support
-         $support->replies()->delete();
+        // // // delete replyes of support
+        //  $support->replies()->delete();
         //delete support
         $support->delete();
     }
