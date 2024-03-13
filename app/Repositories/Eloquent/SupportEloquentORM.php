@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Eloquent;
 
-use stdClass;
-
-use Ramsey\Uuid\Uuid;
-use App\Models\Support;
-use Illuminate\Support\Facades\Gate;
 use App\DTO\Supports\CreateSupportDTO;
 use App\DTO\Supports\UpdateSupportDTO;
-use App\Repositories\PaginationPresenter;
+use App\Models\Support;
 use App\Repositories\Contracts\PaginationInterface;
 use App\Repositories\Contracts\SupportRepositoryInterface;
+use App\Repositories\PaginationPresenter;
+use Illuminate\Support\Facades\Gate;
+use stdClass;
 
 class SupportEloquentORM implements SupportRepositoryInterface
 {
@@ -29,7 +27,7 @@ class SupportEloquentORM implements SupportRepositoryInterface
                 }
             })
             ->paginate($totalPerPage, ['*'], 'page', $page);
-
+        dd(new PaginationPresenter($result));
         return new PaginationPresenter($result);
     }
 
