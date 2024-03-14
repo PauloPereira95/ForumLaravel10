@@ -19,6 +19,9 @@ class ReplySupport extends Model
         'support_id',
         'content'
     ];
+    // Sempre que utulizar este modelo retorna tambem os dados do user
+    protected $with = ['user'];
+
     protected $table = 'replies_support';
 
     // convert date to this format

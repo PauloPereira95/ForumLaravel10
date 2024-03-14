@@ -19,7 +19,14 @@ class SupportEloquentORM implements SupportRepositoryInterface
     }
     public function paginate(int $page = 1, int $totalPerPage = 15, string $filter = null): PaginationInterface
     {
-        $result = $this->model
+//        get support and reply and user witch create a reply on support
+//        $result = $this->model->with('replies.user')
+        $result = $this->model->with(['replies' => function($query){
+            // limit to for 4 results
+            $query->limit(4);
+            // return the latest results
+            $query->latest();
+        }])
             ->where(function ($query) use ($filter) {
                 if ($filter) {
                     $query->where('subject', $filter);
@@ -27,7 +34,6 @@ class SupportEloquentORM implements SupportRepositoryInterface
                 }
             })
             ->paginate($totalPerPage, ['*'], 'page', $page);
-        dd(new PaginationPresenter($result));
         return new PaginationPresenter($result);
     }
 
