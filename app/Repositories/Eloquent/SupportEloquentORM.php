@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use App\DTO\Supports\CreateSupportDTO;
 use App\DTO\Supports\UpdateSupportDTO;
+use App\Enums\SupportStatus;
 use App\Models\Support;
 use App\Repositories\Contracts\PaginationInterface;
 use App\Repositories\Contracts\SupportRepositoryInterface;
@@ -15,13 +16,15 @@ class SupportEloquentORM implements SupportRepositoryInterface
 {
     public function __construct(
         protected Support $model
-    ) {
+    )
+    {
     }
+
     public function paginate(int $page = 1, int $totalPerPage = 15, string $filter = null): PaginationInterface
     {
 //        get support and reply and user witch create a reply on support
 //        $result = $this->model->with('replies.user')
-        $result = $this->model->with(['replies' => function($query){
+        $result = $this->model->with(['replies' => function ($query) {
             // limit to for 4 results
             $query->limit(4);
             // return the latest results
@@ -52,14 +55,16 @@ class SupportEloquentORM implements SupportRepositoryInterface
             ->get()
             ->toArray();
     }
+
     public function findOne(string|int $id): stdClass|null
     {
         $support = $this->model->with('user')->find($id);
         if (!$support)
             return null;
 
-        return (object) $support->toArray();
+        return (object)$support->toArray();
     }
+
     public function delete(string $id): void
     {
         // only delte the owner of the support
@@ -73,15 +78,17 @@ class SupportEloquentORM implements SupportRepositoryInterface
         //delete support
         $support->delete();
     }
+
     public function new(CreateSupportDTO $dto): stdClass
     {
 
         $support = $this->model->create(
-            (array) $dto,
+            (array)$dto,
 
         );
-        return (object) $support->toArray();
+        return (object)$support->toArray();
     }
+
     public function update(UpdateSupportDTO $dto): stdClass|null
     {
         if (!$support = $this->model->find($dto->id))
@@ -90,7 +97,15 @@ class SupportEloquentORM implements SupportRepositoryInterface
         if (Gate::denies('owner', $support->user->id)) {
             abort(403, 'Nao esta Autorizado');
         }
-        $support->update((array) $dto);
-        return (object) $support->toArray();
+        $support->update((array)$dto);
+        return (object)$support->toArray();
+    }
+
+    public function updateStatus(string $id, SupportStatus $status): void
+    {
+        $this->model->where('id', $id)
+            ->update([
+                'status' => $status->name
+            ]);
     }
 }

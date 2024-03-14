@@ -1,6 +1,8 @@
 <?php
 namespace App\Repositories\Contracts;
 
+use App\Enums\SupportStatus;
+use App\Models\Support;
 use stdClass;
 use App\DTO\Supports\CreateSupportDTO;
 use App\DTO\Supports\UpdateSupportDTO;
@@ -13,4 +15,5 @@ interface SupportRepositoryInterface
     public function delete(string $id): void;
     public function new(CreateSupportDTO $dto): stdClass;
     public function update(UpdateSupportDTO $dto): stdClass|null;
+    public function updateStatus(string $id, SupportStatus $status):void;
 }
