@@ -43,7 +43,8 @@ class SupportController extends Controller
             CreateSupportDTO::makeFromRequest($request)
         );
        // Pradonizar Retorno em api
-       return new SupportResource($support);
+       return (new SupportResource($support))
+       ->response()->setStatusCode(Response::HTTP_CREATED);;
     }
 
     /**

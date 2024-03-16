@@ -30,6 +30,7 @@ class ReplySupportApiController extends Controller
     public function createNewReplie(StoreReplySupportRequest $request){
         $reply = $this->replyService->createNew(CreateReplyDTO::makeFromRequest($request));
         // dd($reply);
-        return new ReplySupportResource($reply);
+        return ( new ReplySupportResource($reply))
+        ->response()->setStatusCode(Response::HTTP_CREATED);
     }
 }
