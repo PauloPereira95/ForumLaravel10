@@ -24,12 +24,15 @@ class SupportEloquentORM implements SupportRepositoryInterface
     {
 //        get support and reply and user witch create a reply on support
 //        $result = $this->model->with('replies.user')
-        $result = $this->model->with(['replies' => function ($query) {
-            // limit to for 4 results
-            $query->limit(4);
-            // return the latest results
-            $query->latest();
-        }])
+        $result = $this->model
+        // ->with(['replies' => function ($query) {
+        //     // limit to for 4 results
+        //     $query->limit(4);
+        //     // return the latest results
+        //     $query->latest();
+        //     $query->with('user');
+        // }])
+            ->with('replies.user')
             ->where(function ($query) use ($filter) {
                 if ($filter) {
                     $query->where('subject', $filter);

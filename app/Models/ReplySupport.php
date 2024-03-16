@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,14 @@ class ReplySupport extends Model
     ];
     // Sempre que utulizar este modelo retorna tambem os dados do user
     protected $with = ['user'];
+
+
+    // always reorder by latest
+    protected static function booted() {
+        static::AddGlobalScope('order' , function(Builder $builder) {
+            $builder->latest();
+        });
+    }
 
     protected $table = 'replies_support';
 
