@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SupportController;
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\ReplySupportApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ Route::post('/login', [AuthController::class, 'auth']) ;
 
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::apiResource('/supports', SupportController::class);
+    Route::get('/replies/{support_id}' ,[ ReplySupportApiController::class ,'getRepliesFromSupport']);
     // return the authenticated user
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
