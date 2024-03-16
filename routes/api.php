@@ -21,7 +21,11 @@ Route::post('/login', [AuthController::class, 'auth']) ;
 
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::apiResource('/supports', SupportController::class);
+
+    // Get Replies Support
     Route::get('/replies/{support_id}' ,[ ReplySupportApiController::class ,'getRepliesFromSupport']);
+    // Post reply
+    Route::post('/replies/{support_id}' , [ReplySupportApiController::class, 'createNewReplie']);
     // return the authenticated user
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
