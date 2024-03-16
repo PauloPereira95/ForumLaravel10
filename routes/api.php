@@ -26,6 +26,9 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/replies/{support_id}' ,[ ReplySupportApiController::class ,'getRepliesFromSupport']);
     // Post reply
     Route::post('/replies/{support_id}' , [ReplySupportApiController::class, 'createNewReplie']);
+    // Delete Reply
+    Route::delete('/replies/{id}' , [ReplySupportApiController::class , 'destroy']);
+
     // return the authenticated user
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
